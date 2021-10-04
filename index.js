@@ -1,4 +1,5 @@
 import { getRandomInt } from "./random.js";
+var numberTarget = 1;
 
 const createCardNode = () => {
   const imagen = document.createElement("img");
@@ -14,7 +15,8 @@ const createCardNode = () => {
   parrafo.appendChild(text);
   const card = document.createElement("div");
   card.className = "card";
-
+  card.id = "card"+numberTarget;
+  numberTarget += parseInt(1);
   imageContainer.appendChild(imagen);
   card.appendChild(imageContainer);
   card.appendChild(parrafo);
@@ -23,10 +25,20 @@ const createCardNode = () => {
 };
 
 const mountNode = document.querySelector("#app");
-const addCardButton = document.querySelector("button");
+const addCardButton = document.querySelector("#add")
+const removeCardButton = document.querySelector("#remove");
 
 const addCard = () => {
   mountNode.appendChild(createCardNode());
 };
 
+const removeCard = () => {
+  if(numberTarget>1) {
+    numberTarget -= parseInt(1);
+    const deleteCard =document.getElementById("card"+numberTarget);
+    mountNode.removeChild(deleteCard);
+  }
+}
+
 addCardButton.addEventListener("click", addCard);
+removeCardButton.addEventListener("click", removeCard);
